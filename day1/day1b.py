@@ -2,8 +2,10 @@
 
 import time
 from more_itertools import windowed
+import tracemalloc
 
 starttime = time.time()
+tracemalloc.start()
 
 depths =[]
 variations = []
@@ -27,6 +29,8 @@ while i < len(sums):
         variations.append("d")
     i=i+1
 #print(variations)
+print("Current: %d, Peak %d" % tracemalloc.get_traced_memory())
+
 endtime = time.time()
 
 print("AOC 2021 - day 1 - puzzle 2")
