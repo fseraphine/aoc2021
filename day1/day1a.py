@@ -1,4 +1,7 @@
 #!/usr/bin/python
+import time
+
+starttime = time.time()
 
 depths =[]
 variations = []
@@ -15,4 +18,6 @@ while i < len(depths):
     else: 
         variations.append("d")
     i=i+1
+print("AOC 2021 - day 1 - puzzle 1")
 print("inc",variations.count("i"),"dec",variations.count("d"))
+print("Temps d'éxécution:",time.time()-starttime)
