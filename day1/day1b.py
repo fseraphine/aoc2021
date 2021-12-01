@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import time
+from more_itertools import windowed
 
 starttime = time.time()
 
@@ -26,6 +27,8 @@ while i < len(sums):
         variations.append("d")
     i=i+1
 #print(variations)
+endtime = time.time()
+
 print("AOC 2021 - day 1 - puzzle 2")
-print("inc",variations.count("i"),"dec",variations.count("d"))
-print("Temps d'éxécution:",time.time()-starttime)
+print("*** inc",variations.count("i"),"dec",variations.count("d"))
+print("Temps d'éxécution:",endtime-starttime)
