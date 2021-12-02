@@ -1,14 +1,13 @@
 #!/usr/bin/python
 
 import time
-from more_itertools import windowed
 import tracemalloc
-
-answer = 0
-pos = { 'd': 0, 'h': 0, 'a': 0}
 
 starttime = time.time()
 tracemalloc.start()
+
+answer = 0
+pos = { 'd': 0, 'h': 0, 'a': 0}
 
 with open('data_day02.txt') as data:
     for line in data:
