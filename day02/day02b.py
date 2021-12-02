@@ -10,16 +10,17 @@ pos = { 'd': 0, 'h': 0, 'a': 0}
 starttime = time.time()
 tracemalloc.start()
 
-for line in open('data_day02.txt'):
-    m,q = line.strip().split(" ")
-    if(m=='forward'):
-        pos['h'] = pos['h'] + int(q)
-        pos['d'] = pos['d'] + int(q) * pos['a']
-    elif(m=='down'):
-        pos['a'] = pos['a'] + int(q)
-    elif(m=='up'):
-        pos['a'] = pos['a'] - int(q)
-    #print(f"{m}\t=> h {pos['h']} - d {pos['d']} - a {pos['a']}")
+with open('data_day02.txt') as data:
+    for line in data:
+        m,q = line.strip().split(" ")
+        if(m=='forward'):
+            pos['h'] = pos['h'] + int(q)
+            pos['d'] = pos['d'] + int(q) * pos['a']
+        elif(m=='down'):
+            pos['a'] = pos['a'] + int(q)
+        elif(m=='up'):
+            pos['a'] = pos['a'] - int(q)
+        #print(f"{m}\t=> h {pos['h']} - d {pos['d']} - a {pos['a']}")
 
 answer = pos['h'] * pos['d']
 
