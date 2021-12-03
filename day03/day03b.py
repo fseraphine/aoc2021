@@ -13,7 +13,7 @@ answer = 0
 diag = []
 emptystr=""
 
-with open('ex_day03.txt') as data:
+with open('data_day03.txt') as data:
     for line in data:
         diag.append(list(map(int,list(line.strip()))))
 
@@ -21,42 +21,35 @@ tdiag = transpose(diag)
 w=len(diag[0])
 l=len(diag)
 
-idco = [x for x in range(l)]
-idcc = [x for x in range(l)]
+idco = idcc = [x for x in range(l)]
 
 
 for i in range(w):
-    nb=(len(idco))/2
-    ones = sum([ tdiag[i][k] for k in idco])
-    print(f"{i=} - {ones=} - {nb=}")
-    if(ones>= nb):
-        # we keep ones
+    # compute the sum of ones (1) in the current bit column for o2
+    ones = sum([ tdiag[i][k] for k in idco ])
+    # and compare this sum to the nb of remaining lines valid for o2
+    if(ones>= len(idco)/2):
+        # we keep ones of o2 (idco) (idcc)
         idco = [j for j in idco if(tdiag[i][j]==1)]
-        idcc = [j for j in idcc if(tdiag[i][j]==0)]
-        print(f"keeping 1 - {idco=}")
-        print(f"keeping 0 - {idcc=}")
-    elif(ones<nb):
-        # we keep zeros
+    else:
+        # we keep zeros of o2 (idco) (idcc)
         idco = [j for j in idco if(tdiag[i][j]==0)]
+    
+    # compute the total of ones (1) in the current bit column for co2
+    ones = sum([ tdiag[i][k] for k in idcc ])
+    # and compare this sum to the nb of remaining lines valid for co2
+    if(ones>= len(idcc)/2):
+        # we keep zeros for co2 (idcc)
+        idcc = [j for j in idcc if(tdiag[i][j]==0)]
+    else:
+        # we keep ones for co2 (idcc)
         idcc = [j for j in idcc if(tdiag[i][j]==1)]
-        print(f"keeping 0 - {idco=}")
-        print(f"keeping 1 - {idcc=}")
-    # else:
-    #     # we keep prefered value
-    #     idco = [j for j in idco if(tdiag[i][j]==1)]
-    #     idcc = [j for j in idco if(tdiag[i][j]==0)]
-    #     print(f"keeping 1 - {idco=}")
-    #     print(f"keeping 0 - {idcc=}")
+    
+    # if there's only one value left, we compute the decimal value
     if (len(idco)==1):
-        print("idco:",idco[0],diag[idco[0]])
         o2=reduce(lambda x,y:(x<<1)|y,diag[idco[0]])
     if (len(idcc)==1):
-        print("idcc:",idcc[0],diag[idcc[0]])
         co2=reduce(lambda x,y:(x<<1)|y,diag[idcc[0]])
-    for k in idco:
-        print("idco ","".join(str(e) for e in diag[k]))
-    for k in idcc:
-        print("idcc ","".join(str(e) for e in diag[k]))
     i +=1
 
 
