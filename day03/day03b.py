@@ -5,28 +5,62 @@ import tracemalloc
 from numpy import transpose
 from functools import reduce
 
+
 starttime = time.time()
 tracemalloc.start()
 
 answer = 0
-tab = []
-g,e=0,0
-with open('data_day03.txt') as data:
+diag = []
+emptystr=""
+
+with open('ex_day03.txt') as data:
     for line in data:
-        tab.append(list(map(int,list(line.strip()))))
+        diag.append(list(map(int,list(line.strip()))))
 
-for l in transpose(tab):
-    print(sum(l),len(l))
-    if(sum(l)>len(l)/2):
-        g = (g<<1)|1
-        e = (e<<1)|0
-    else:
-        g = (g<<1)|0
-        e = (e<<1)|1
+tdiag = transpose(diag)
+w=len(diag[0])
+l=len(diag)
 
-print(g,e)
+idco = [x for x in range(l)]
+idcc = [x for x in range(l)]
 
-answer = g * e
+
+for i in range(w):
+    nb=(len(idco))/2
+    ones = sum([ tdiag[i][k] for k in idco])
+    print(f"{i=} - {ones=} - {nb=}")
+    if(ones>= nb):
+        # we keep ones
+        idco = [j for j in idco if(tdiag[i][j]==1)]
+        idcc = [j for j in idcc if(tdiag[i][j]==0)]
+        print(f"keeping 1 - {idco=}")
+        print(f"keeping 0 - {idcc=}")
+    elif(ones<nb):
+        # we keep zeros
+        idco = [j for j in idco if(tdiag[i][j]==0)]
+        idcc = [j for j in idcc if(tdiag[i][j]==1)]
+        print(f"keeping 0 - {idco=}")
+        print(f"keeping 1 - {idcc=}")
+    # else:
+    #     # we keep prefered value
+    #     idco = [j for j in idco if(tdiag[i][j]==1)]
+    #     idcc = [j for j in idco if(tdiag[i][j]==0)]
+    #     print(f"keeping 1 - {idco=}")
+    #     print(f"keeping 0 - {idcc=}")
+    if (len(idco)==1):
+        print("idco:",idco[0],diag[idco[0]])
+        o2=reduce(lambda x,y:(x<<1)|y,diag[idco[0]])
+    if (len(idcc)==1):
+        print("idcc:",idcc[0],diag[idcc[0]])
+        co2=reduce(lambda x,y:(x<<1)|y,diag[idcc[0]])
+    for k in idco:
+        print("idco ","".join(str(e) for e in diag[k]))
+    for k in idcc:
+        print("idcc ","".join(str(e) for e in diag[k]))
+    i +=1
+
+
+answer = (o2,co2,o2*co2)
 
 endtime = time.time()
 
