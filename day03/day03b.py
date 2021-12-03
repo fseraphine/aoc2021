@@ -58,7 +58,7 @@ answer = (o2,co2,o2*co2)
 endtime = time.time()
 
 print("===========================")
-print("AOC 2021 - day 3 - puzzle 1")
+print("AOC 2021 - day 3 - puzzle 2")
 print(f"*** Answer : {answer}")
 print("===========================")
 print(f"Temps d'éxécution: {endtime-starttime:0.6f}")
