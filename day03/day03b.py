@@ -23,7 +23,7 @@ l=len(diag)
 
 idco = idcc = [x for x in range(l)]
 
-
+o2 = co2 = 0
 for i in range(w):
     # compute the sum of ones (1) in the current bit column for o2
     ones = sum([ tdiag[i][k] for k in idco ])
@@ -50,6 +50,8 @@ for i in range(w):
         o2=reduce(lambda x,y:(x<<1)|y,diag[idco[0]])
     if (len(idcc)==1):
         co2=reduce(lambda x,y:(x<<1)|y,diag[idcc[0]])
+    if(o2 and co2):
+        break
     i +=1
 
 
@@ -58,7 +60,7 @@ answer = (o2,co2,o2*co2)
 endtime = time.time()
 
 print("===========================")
-print("AOC 2021 - day 3 - puzzle 1")
+print("AOC 2021 - day 3 - puzzle 2")
 print(f"*** Answer : {answer}")
 print("===========================")
 print(f"Temps d'éxécution: {endtime-starttime:0.6f}")
