@@ -15,7 +15,7 @@ with open('data_day06.txt') as data:
 
 timer=0
 
-while timer <256:
+while timer <80:
     for i in range(len(f)):
         if (f[i]==0):
             f[i]=6
